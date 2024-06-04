@@ -1,0 +1,55 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<main class="form-signin w-100 m-auto">
+    <form action="" method="post" class="form-signin">
+        {{ form.csrf_token }}
+        <div class="text-center mb-4">
+            <img class="mb-4" src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        </div>
+                
+        <div class="form-floating">
+            <!-- <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"> -->
+            {{form.username(_class="form-control", placeholder="Usuario", id="inputEmail")}}
+            
+        </div><br/>
+        {% if form.errors.username%}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for err in form.errors.username %}
+                        <li>
+
+                            {{err}}
+                        </li>
+                    {% endfor %}
+                </ul>
+          </div>
+        {% endif %}
+        <div class="form-floating">
+          <!-- <input type="password" class="form-control" id="floatingPassword" placeholder="Password"> -->
+          {{form.password(_class="form-control", placeholder="Senha")}}
+    
+        </div>
+        {% if form.errors.password%}
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                {% for err in form.errors.username %}
+                <li>
+
+                    {{err}}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <div class="checkbox mb-3">
+          <label class="form-check-label">
+            {{form.remember_me(_class="form-control")}} Remember me
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+        <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
+    </form>
+</main>
+{% endblock %}
