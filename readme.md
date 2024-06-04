@@ -13,3 +13,10 @@
 
 ## Instalar dependencias a partir do requirements.txt ##
      clone_twitter/bin/pip3 install -r requirements.txt
+
+## Criar Repositorio das migraçoes
+     flask db init
+     flask db migrate -m "Initial migration."
+
+## Aplica mudanças descritas pelo script de migração
+     flask db update
