@@ -1,10 +1,6 @@
 from app import db, login_manager
 
 
-# @login_manager.load_user
-# def load_user(user):
-#     return User.get(user)
-
 class User(db.Model):
     
     __tablename__ = "users"
