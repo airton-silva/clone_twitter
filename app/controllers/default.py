@@ -1,15 +1,18 @@
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user, login_required
 
 from app.models.tables import User
-from app.models.form import LoginForm
+from app.models.form import LoginForm, UserForm
 
 @app.route("/index")
 @app.route("/")
 def index():
-    return render_template('index.html')
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+    else:
+        return render_template('index.html')
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -20,12 +23,12 @@ def login():
 
         if user and user.password == form.password.data:
             login_user(user)
-            flash("Logged in.")
+            flash("Logged in.", "success")
             return redirect(url_for('index'))
 
 
         else:
-            flash("Invalida login")
+            flash("Usuário ou Senha Inválidos", "error")
 
     else:
         print(form.errors)
@@ -36,14 +39,44 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-@app.route("/teste/<info>")
-@app.route("/teste", defaults={"info": None})
-def teste(info):
-    usuario = User("airton_silva", "62868642", "Antonio Airton", "aa@mail.com")
+# @app.route("/user")
+@app.route("/user/create", methods=["GET", "POST"])
+def create_user():
 
-    db.session.add(usuario)
-    db.session.commit()
-    return "OK"
+    form = UserForm()
+    if form.validate_on_submit():
+        usuario = User(form.name.data, form.username.data, form.password.data, form.email.data)
+        db.session.add(usuario)
+        db.session.commit()
+
+        flash("Usuário criado com sucesso.", "success")
+        return redirect(url_for('login'))
+
+    else:
+        print(form.errors)
+    return render_template('user/form.html', form=form) 
+
+@app.route("/user/<int:id>")
+@login_required
+def user_detail(id):
+    user = db.get_or_404(User, id)
+    if current_user.id != user.id:
+        return "<h1>Usuário não Autorizado</h1>"
+    else:
+        return render_template("user/detail.html", user=user)
+
+@app.route("/user/<int:id>/delete", methods=["GET", "POST"])
+@login_required
+def user_delete(id):
+    user = db.get_or_404(User, id)
+
+    if request.method == "POST" and current_user.id == user.id:
+        db.session.delete(user)
+        db.session.commit()
+        flash("Usuário deletado com sucesso.", "success")
+        return redirect(url_for('login'))
+
+    return render_template("user/detail.html", user=user)
 
 @app.route("/users", methods=["GET"])
 def getUsers():
