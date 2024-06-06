@@ -75,6 +75,8 @@ def user_delete(id):
         db.session.commit()
         flash("Usuário deletado com sucesso.", "success")
         return redirect(url_for('login'))
+    else:
+        return "<h1>Usuário não Autorizado</h1>"
 
     return render_template("user/detail.html", user=user)
 
