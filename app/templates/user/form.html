@@ -1,0 +1,74 @@
+{% extends 'base.html'%}
+
+{% block title %} create_user {% endblock %}
+
+{% block content %}
+<main class=container_>
+    <form action="" method="post" class="form-signin">
+        {{ form.csrf_token }}
+
+        <div class='div-2'>
+            <div class='sub-div-2'>
+                <h3>Criar Usuário para Twitter</h3>
+            </div>
+        </div>
+
+        <div class='div-3'>
+            <div class='sub-div-3'>
+                <label>nome</label><br>
+                {{form.name(_class="form-control", placeholder="Ana Silva", id="name")}}
+            </div>
+        </div>
+
+        <div class='div-4'>
+            <div class='sub-div-4'>
+                <label>Email</label><br>
+                {{form.email(_class="form-control", placeholder="Email")}}
+            </div>
+        </div>
+
+        <div class='div-3'>
+            <div class='sub-div-3'>
+                <label>Usuario</label><br>
+                {{form.username(_class="form-control", placeholder="Usuario", id="username")}}
+            </div>
+        </div>
+
+        <div class='div-4'>
+            <div class='sub-div-4'>
+                <label>Password</label><br>
+                {{form.password(_class="form-control", placeholder="Senha")}}
+            </div>
+        </div>
+        <br>
+        <div class='div-4'>
+
+            {% if form.errors%}
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        {% for err in form.errors %}
+                            <li>
+                               O campo {{err}} é Obrigatório
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class='div-5'>
+            <div class='sub-div-5'>
+                <button type="submit">Salvar</button>
+            </div>
+        </div>
+        <!-- <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+        <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p> -->
+    </form>
+    <!-- <div class='div-6'>
+        <div class='sub-div-6'>
+            <a href=''>Forgot password? .&nbsp;</a>
+            <a href=''>Sign up for Twitter</a>
+        </div>
+    </div> -->
+</main>
+{% endblock %}
