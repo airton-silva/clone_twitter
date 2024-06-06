@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+
+{% block title %} detail_user {% endblock %}
+
+{% block content %}
+<main class=container_>
+<h1>Perfil de {{user.name}}</h1>
+    <ul>
+        <li>id: {{user.id}}</li>
+        <li>Usuário: {{user.username}}</li>
+        <li>Email: {{user.email}}</li>
+        <br>
+        <div class="row">
+            <div class="col-md-3">
+                <span>         
+                    <button class="btn btn-outline-secondary" type="button">
+                        Editar <i class="fa fa-edit icon"></i>
+                    </button>
+                </span>
+            </div>
+            <div class="col-md-3 ">
+                <span>  
+                    <form action="{{url_for('user_delete', id=user.id)}}" method="post">     
+                        <button class="btn btn-outline-danger" type="submit">
+                            Excluir <i class="fa fa-trash icon"></i>
+                        </button>
+                    </form>
+                </span>
+            </div>
+        </div>
+    </ul>
+</main>
+{% endblock %}
