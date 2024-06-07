@@ -4,7 +4,7 @@ from app import app, db
 from flask_login import login_user, logout_user, current_user, login_required
 
 from app.models.tables import User
-from app.models.form import LoginForm, UserForm
+from app.models.form import LoginForm, UserForm, UserFormUpdate
 
 @app.route("/index")
 @app.route("/")
@@ -64,6 +64,26 @@ def user_detail(id):
         return "<h1>Usuário não Autorizado</h1>"
     else:
         return render_template("user/detail.html", user=user)
+
+@app.route("/user/<int:id>/update", methods=["GET", "POST"])
+def update_user(id):
+    user = db.get_or_404(User, id)
+
+    form = UserFormUpdate()
+    if form.validate_on_submit():
+        user.name = form.name.data
+        user.email = form.email.data
+        user.username = form.username.data
+     
+        db.session.add(user)
+        db.session.commit()
+
+        flash("Usuário atualizado com sucesso.", "success")
+        return redirect(url_for('user_detail',id=user.id))
+
+    else:
+        print(form.errors)
+    return render_template('user/form.html', form=form, user=user) 
 
 @app.route("/user/<int:id>/delete", methods=["GET", "POST"])
 @login_required
