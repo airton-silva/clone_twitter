@@ -3,6 +3,7 @@
 {% block title %} create_user {% endblock %}
 
 {% block content %}
+
 <main class=container_>
     <form action="" method="post" class="form-signin">
         {{ form.csrf_token }}
@@ -16,30 +17,37 @@
         <div class='div-3'>
             <div class='sub-div-3'>
                 <label>nome</label><br>
-                {{form.name(_class="form-control", placeholder="Ana Silva", id="name")}}
+                {% if user %}
+                    {{form.name(_class="form-control", placeholder="Fulano de Tal", id="name", value=user.name)}}
+                {% else %}
+                    {{form.name(_class="form-control", placeholder="Fulano de Tal", id="name" )}}
+                {% endif %}
             </div>
         </div>
 
         <div class='div-4'>
             <div class='sub-div-4'>
                 <label>Email</label><br>
-                {{form.email(_class="form-control", placeholder="Email")}}
+                {% if user %}
+                    {{form.email(_class="form-control", placeholder="Email", value=user.email)}}
+                {% else %}
+                    {{form.email(_class="form-control", placeholder="Email")}}
+                {% endif %}
+
             </div>
         </div>
 
         <div class='div-3'>
             <div class='sub-div-3'>
                 <label>Usuario</label><br>
-                {{form.username(_class="form-control", placeholder="Usuario", id="username")}}
+                {% if user %}
+                    {{form.username(_class="form-control", placeholder="Usuario", id="username", value=user.username,)}}
+                {% else %}
+                    {{form.username(_class="form-control", placeholder="Usuario", id="username")}}
+                {% endif %}
             </div>
         </div>
 
-        <div class='div-4'>
-            <div class='sub-div-4'>
-                <label>Password</label><br>
-                {{form.password(_class="form-control", placeholder="Senha")}}
-            </div>
-        </div>
         <br>
         <div class='div-4'>
 
