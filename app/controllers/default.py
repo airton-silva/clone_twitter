@@ -3,23 +3,24 @@ from app import app, db
 
 from flask_login import login_user, logout_user, current_user, login_required
 
-from app.models.tables import User
-from app.models.form import LoginForm, UserForm, UserFormUpdate
+from app.models.tables import User, Post
+from app.models.form import LoginForm, UserForm, UserFormUpdate, PostForm
 
 @app.route("/index")
 @app.route("/")
 def index():
+    read_users = User.query.all()
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
     else:
-        return render_template('index.html')
+        return render_template('index.html', users=read_users)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        print(user.password)
+        # print(user.password)
 
         if user and user.password == form.password.data:
             login_user(user)
@@ -104,3 +105,29 @@ def user_delete(id):
 def getUsers():
     read_user = User.query.all()
     return read_user
+
+@app.route("/new", methods=["GET"])
+def newT():
+    read_users = User.query.all()
+    read_posts = Post.query.all()
+    return render_template("new_template/index.html", users=read_users)
+
+@app.route("/posts", methods=["GET"])
+def show_post():
+    read_posts = Post.query.all()
+    return render_template("new_template/index.html", users=read_posts)
+
+@app.route("/post/create", methods=["GET", "POST"])
+def create_post():
+    form = PostForm()
+    if form.validate_on_submit():
+        usuario = User(form.content.data)
+        db.session.add(usuario)
+        db.session.commit()
+
+        flash("Tweeter criado com sucesso.", "success")
+        return redirect(url_for('new_template/index.html'))
+
+    else:
+        print(form.errors)
+    return render_template('user/form.html', form=form) 
