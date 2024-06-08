@@ -8,15 +8,19 @@
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.84.0">
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
   
   <link rel="stylesheet" href="{{url_for('static', filename='css/signin.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
   
-  <link rel="apple-touch-icon" href="{{url_for('static', filename='/img/favicons/apple-touch-icon.png')}}" sizes="180x180">
   <meta name="theme-color" content="#7952b3">
   
-  <title>_twitter</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='css/reset.css')}}" />
+  <link rel="stylesheet" href="{{url_for('static', filename='css/all.min.css')}}" />
+  <link rel="stylesheet" href="{{url_for('static', filename='css/fonts.css')}}" />
+  <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" />
+
+  <link rel="icon" type="image/png" href="{{url_for('static', filename='./assets/favicon.png')}}" />
 
 
   <title>{% block title %} _Twitter {% endblock %}</title>
@@ -103,68 +107,175 @@
 </head>
 
 <body>
+    <!-- Inico do Menu Lateral -->
+    <header class="header__container">
+      <div class="header">
+        <div class="header__actions">
+          <div>
+            <h2 class="header__title">Página Inicial</h2>
+          </div>
 
-  <div class="container">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-        <div class='sub-div-1'>
-          <i class="fa fa-twitter icon"></i>
+          <div class="user__sparkless">
+            <svg width="100%" height="100%" viewBox="0 0 24 24">
+              <g>
+                <path
+                  d="M22.772 10.506l-5.618-2.192-2.16-6.5c-.102-.307-.39-.514-.712-.514s-.61.207-.712.513l-2.16 6.5-5.62 2.192c-.287.112-.477.39-.477.7s.19.585.478.698l5.62 2.192 2.16 6.5c.102.306.39.513.712.513s.61-.207.712-.513l2.16-6.5 5.62-2.192c.287-.112.477-.39.477-.7s-.19-.585-.478-.697zm-6.49 2.32c-.208.08-.37.25-.44.46l-1.56 4.695-1.56-4.693c-.07-.21-.23-.38-.438-.462l-4.155-1.62 4.154-1.622c.208-.08.37-.25.44-.462l1.56-4.693 1.56 4.694c.07.212.23.382.438.463l4.155 1.62-4.155 1.622zM6.663 3.812h-1.88V2.05c0-.414-.337-.75-.75-.75s-.75.336-.75.75v1.762H1.5c-.414 0-.75.336-.75.75s.336.75.75.75h1.782v1.762c0 .414.336.75.75.75s.75-.336.75-.75V5.312h1.88c.415 0 .75-.336.75-.75s-.335-.75-.75-.75zm2.535 15.622h-1.1v-1.016c0-.414-.335-.75-.75-.75s-.75.336-.75.75v1.016H5.57c-.414 0-.75.336-.75.75s.336.75.75.75H6.6v1.016c0 .414.335.75.75.75s.75-.336.75-.75v-1.016h1.098c.414 0 .75-.336.75-.75s-.336-.75-.75-.75z"
+                ></path>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <div class="header__search">
+          <div class="header__input">
+            <label for="search"><i class="fas fa-search"></i></label>
+            <input id="search" type="search" placeholder="Buscar no Twitter" />
+          </div>
+        </div>
       </div>
-        <span class="fs-4">_Twitter</span>
-      </a>
 
-      <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
+      <div class="header__fix"></div>
+
+      <figure class="user__avatar">
+        <img
+          alt="User Avatar"
+          src="{{url_for('static', filename='./assets/rabbit.png')}}"
+        />
+      </figure>
+
+      <nav class="navbar">
         {% if current_user.is_authenticated %}
-                
-          <li class="nav-item dropdown">
-            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{ current_user.username }}<i class="fa fa-user icon"></i>
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="{{url_for('user_detail', id=current_user.id)}}">Perfil</a>
-              <a href="{{url_for('logout')}}" class="nav-link">Sair <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+            <div class="navbar__content">
+              <a href="#" class="hiddable--md">
+                <figure class="logo">
+                  _ -<img alt="logo" src="{{url_for('static', filename='assets/favicon.png')}}" />
+                </figure>
+              </a>
+
+              <div class="icon icon--selected" title="Página Inicial">
+                <i class="fas fa-home"></i>
+                <span class="icon__ball"></span>
+                <span class="icon__label">Página Inicial</span>
+              </div>
+
+              <div class="icon icon--search" title="Pesquisar">
+                <i class="fas fa-search"></i>
+              </div>
+
+              <div class="icon icon--exploration" title="Explorar">
+                <i class="fas fa-hashtag"></i>
+                <span class="icon__label">Explorar</span>
+              </div>
+
+              <div class="icon" title="Notificações">
+                <i class="far fa-bell"></i>
+                <span class="icon__label">Notificações</span>
+                <span data-js="notification" class="icon__quantity">19</span>
+              </div>
+
+              <div class="icon" title="Mensagens">
+                <i class="far fa-envelope"></i>
+                <span class="icon__label">Mensagens</span>
+              </div>
+
+              <div class="icon hiddable--lg" title="Itens Salvos">
+                <i class="far fa-bookmark"></i>
+                <span class="icon__label">Itens Salvos</span>
+              </div>
+
+              <div class="icon hiddable--lg" title="Listas">
+                <i class="fas fa-list"></i>
+                <span class="icon__label">Listas</span>
+              </div>
+
+              <a href="{{url_for('user_detail', id=current_user.id)}}" style="color: rgba(var(--bs-emphasis-color-rgb), 1);  text-decoration: none">
+                <div class="icon hiddable--md" title="Perfil" >
+                    <i class="far fa-user"></i>
+                    <span class="icon__label">Perfil</span>
+                  </div>
+              </a>
+
+              <div open-modal-button class="icon hiddable--md" title="Mais">
+                <i class="fas fa-ellipsis-h"></i>
+                <span class="icon__label">Mais</span>
+              </div>
             </div>
-          </li>
-          
-        {% else %}
-          <li class="nav-item"><a href="{{url_for('login')}}" class="nav-link">Login</a></li>
-        {% endif %}
-      </ul>
+            <div class="actions">
+              <button class="new_tweet new_tweet--full">Tweetar</button>
+              <button class="new_tweet new_tweet--round">
+                <i class="fas fa-plus"></i>
+              </button>
+
+              
+              <div class="dropdown dropleft action">              
+        
+                  <button class="profile" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <figure>
+                      <img
+                        alt="User Avatar"
+                        src="{{url_for('static', filename='./assets/rabbit.png')}}"
+                      />
+                    </figure>
+        
+                    <div class="profile__info">
+                      <span class="profile__name" title="SkyG0D">{{ current_user.username }}</span>
+                      <span class="profile__at_sign" title="@skyg0d">@{{ current_user.username }}</span>
+                    </div>
+                    <i class="fas fa-ellipsis-h"></i>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    
+                    <a href="{{url_for('logout')}}" class="nav-link">Sair <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                  </div>
+              </div>
+            </div>
+
+              
+          {% else %}
+            <a href="#" class="hiddable--md">
+              <figure class="logo">
+                _ -<img alt="logo" src="{{url_for('static', filename='assets/favicon.png')}}" />
+              </figure>
+            </a>
+            <button class="profile" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+              <div class="nav-item"><a href="{{url_for('login')}}" class="nav-link">Login</a></div>
+            </button>
+          {% endif %}
+
+      </nav>
     </header>
-    {% with messages = get_flashed_messages(category_filter=["error"]) %}
-      {% if messages %}
-      <div class="alert alert-warning" role="alert">
-        <ul class=flashes>
-          {% for message in messages %}
-          <li>{{ message }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endif %}
-    {% endwith %}
+    <!-- Fim do Menu Lateral -->
 
-    {% with messages = get_flashed_messages(category_filter=["success"]) %}
-    {% if messages %}
-    <div class="alert alert-success" role="alert">
-      <ul class=flashes>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
-  {% endwith %}
+  <main class="main">
 
-    {% block content %}{% endblock %}
+      {% with messages = get_flashed_messages(category_filter=["error"]) %}
+        {% if messages %}
+        <div class="alert alert-warning" role="alert">
+          <ul class=flashes>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      {% endwith %}
+  
+      {% with messages = get_flashed_messages(category_filter=["success"]) %}
+        {% if messages %}
+        <div class="alert alert-success" role="alert">
+          <ul class=flashes>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      {% endwith %}
+  
+      {% block content %}{% endblock %}
 
-    <!-- <footer class="pt-3 mt-4 text-muted border-top">
-          © 2021
-        </footer> -->
-  </div>
+  </main>
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
