@@ -221,11 +221,14 @@
                       <span class="profile__name" title="SkyG0D">{{ current_user.username }}</span>
                       <span class="profile__at_sign" title="@skyg0d">@{{ current_user.username }}</span>
                     </div>
-                    <i class="fas fa-ellipsis-h"></i>
+                    <i class="fas fa-ellipsis-h" style="margin-left: 2rem;"></i>
                   </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="margin-left: 5rem;">
     
-                    <a href="{{url_for('logout')}}" class="nav-link">Sair <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                    <a href="{{url_for('logout')}}" class="nav-link"> Sair 
+                      <i class="fa fa-sign-out" aria-hidden="true" style="margin-left: 1rem;"></i>
+                    </a>
                   </div>
               </div>
             </div>
