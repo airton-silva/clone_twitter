@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'Segoe UI';
+    font-weight: normal;
+    font-style: normal;
+    src: url(../webfonts/Segoe\ UI.woff);
+  }
+  
+  @font-face {
+    font-family: 'Segoe UI';
+    font-weight: bold;
+    font-style: normal;
+    src: url(../webfonts/Segoe\ UI\ Bold.woff);
+  }
+  
+  @font-face {
+    font-family: 'Segoe UI';
+    font-weight: normal;
+    font-style: italic;
+    src: url(../webfonts/Segoe\ UI\ Italic.woff);
+  }
+  
+  @font-face {
+    font-family: 'Segoe UI';
+    font-weight: bold;
+    font-style: italic;
+    src: url(../webfonts/Segoe\ UI\Bold\ Italic.woff);
+  }
