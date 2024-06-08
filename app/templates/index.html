@@ -25,10 +25,67 @@
             <button type="button" data-js="tweet-button">Tweetar</button>
         </div>
     </div>
-
-    <div data-js="tweets" class="tweets">
-
-    </div>
+    {% if posts %}
+        {% for post in posts %}
+            <div data-js="tweets" class="tweets">
+                <div class="tweet">
+                    <div class="tweet__more">
+                      <i class="fas fa-ellipsis-h"></i>
+                    </div>
+            
+                    <div class="info">
+                      <figure class="user">
+                        <img alt="User Avatar" src="${page.image}" data-user-image />
+                      </figure>
+            
+                      <div style="width: 100%;">
+                        <div class="tweet__content">
+                          <div class="posted">
+                            <div class="posted__title">
+                              <h3 class="tweet__username" data-user-name>@{{post.user.name}}</h3>
+                              <p class="tweet__user_id" data-user-id>@{{post.user.username}}</p>
+                            </div>
+                            <p>· <span class="tweet__time" data-user-time>${time}</span></p>
+                          </div>
+            
+                          ${getDescription(description)}
+            
+                         {{post.content}}
+            
+            
+                        </div>
+            
+                        <div class="tweet__actions">
+                          <div class="tweet__action">
+                            <i class="far fa-comment"></i>
+                            <span>${formatMetric(metrics.likes)}</span>
+                          </div>
+            
+                          <div class="tweet__action">
+                            <i class="far fa-heart"></i>
+                            <span>${formatMetric(metrics.comments)}</span>
+                          </div>
+            
+                          <div class="tweet__action">
+                            <i class="fas fa-retweet"></i>
+                            <span>${formatMetric(metrics.retweets)}</span>
+                          </div>
+            
+                          <div class="tweet__action">
+                            <i class="fas fa-share-alt"></i>
+                            <span></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div data-js="tweets" class="tweets">
+            Nenhuma postagem Nova
+        </div>
+    {% endif %}
 </section>
 
 <section class="feed sticky">
@@ -56,21 +113,36 @@
 
     <div class="feed__card">
         <h2>Quem seguir</h2>
-        {% for user in users %}
-        <div class="card__user card--hover">
-            <figure class="card__avatar">
-                <img alt="User Avatar" src="{{url_for('static', filename='./assets/rabbit.png')}}" />
-            </figure>
+        {% if users %}
+            {% for user in users %}
+            <div class="card__user card--hover">
+                <figure class="card__avatar">
+                    <img alt="User Avatar" src="{{url_for('static', filename='./assets/rabbit.png')}}" />
+                </figure>
 
-            <div class="card__info">
-                <p class="card__username">{{user.username}}</p>
-                <p class="card__user_id">@{{user.username}}</p>
+                <div class="card__info">
+                    <p class="card__username">{{user.username}}</p>
+                    <p class="card__user_id">@{{user.username}}</p>
+                </div>
+
+                <button type="button">Seguir</button>
             </div>
 
-            <button type="button">Seguir</button>
-        </div>
+            {% endfor %}
+        {% else %}
+            <div class="card__user card--hover">
+                <figure class="card__avatar">
+                    <img alt="User Avatar" src="{{url_for('static', filename='./assets/rabbit.png')}}" />
+                </figure>
 
-        {% endfor %}
+                <div class="card__info">
+                    <p class="card__username">Nenhum Usuário na sua Lista</p>
+
+                </div>
+
+                <button type="button">Seguir</button>
+            </div>
+        {% endif %}
 
         <p class="card__more card--hover">Mostrar mais</p>
     </div>
