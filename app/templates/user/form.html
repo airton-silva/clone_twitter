@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<main class=container_>
+<section class=content>
     <form action="" method="post" class="form-signin">
         {{ form.csrf_token }}
 
@@ -47,6 +47,16 @@
                 {% endif %}
             </div>
         </div>
+        <div class='div-3'>
+            <div class='sub-div-3'>
+                <label>Senha</label><br>
+                {% if user %}
+                    {{form.password(_class="form-control", placeholder="Senha", id="Sunha", value=user.password)}}
+                {% else %}
+                    {{form.password(_class="form-control", placeholder="Senha", id="password")}}
+                {% endif %}
+            </div>
+        </div>
 
         <br>
         <div class='div-4'>
@@ -78,5 +88,5 @@
             <a href=''>Sign up for Twitter</a>
         </div>
     </div> -->
-</main>
+</section>
 {% endblock %}
