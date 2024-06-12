@@ -22,7 +22,7 @@
                 <i class="far fa-calendar"></i>
             </div>
 
-            <button type="button" data-js="tweet-button">Tweetar</button>
+            <button type="button" data-js="tweet-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Tweetar</button>
         </div>
     </div>
     {% if posts %}
@@ -35,14 +35,14 @@
             
                     <div class="info">
                       <figure class="user">
-                        <img alt="User Avatar" src="${page.image}" data-user-image />
+                        <img alt="User Avatar" src="{{ url_for('static', filename=post.user.image_url)}}"  data-user-image />
                       </figure>
             
                       <div style="width: 100%;">
                         <div class="tweet__content">
                           <div class="posted">
                             <div class="posted__title">
-                              <h3 class="tweet__username" data-user-name>@{{post.user.name}}</h3>
+                              <h3 class="tweet__username" data-user-name>{{post.user.name}}</h3>
                               <p class="tweet__user_id" data-user-id>@{{post.user.username}}</p>
                             </div>
                             <p>· <span class="tweet__time" data-user-time>${time}</span></p>
@@ -147,5 +147,36 @@
         <p class="card__more card--hover">Mostrar mais</p>
     </div>
 </section>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Tweetar</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+            <div class="modal-body">
+                    <form action="{{url_for('create_post', id=current_user.id)}}" method=post enctype=multipart/form-data>
+                     {% if form %}
+                        {{ form.csrf_token }}
+                          <div class="mb-3">
+                              <label for="content" class="form-label">Conteúdo</label>
+                              {{form.content(_class="form-control", cols="35", rows="10" )}}
+                          </div>                        
+                        <figure>
+                            <button type="submit" class="btn btn-primary">Postar</button>
+                        </figure>
+                     {% else %}
+                     {% endif %}
+                    </form>
+                    
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+            </div>
+    </div>
+  </div>
 
 {% endblock %}
